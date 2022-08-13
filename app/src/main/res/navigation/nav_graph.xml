@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/BookFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.google_books.FirstFragment"
+        android:id="@+id/BookFragment"
+        android:name="com.example.google_books.ui.book.BookFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_book">
 
     </fragment>
 </navigation>

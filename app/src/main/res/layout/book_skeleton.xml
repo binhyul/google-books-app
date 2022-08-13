@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:layout_width="match_parent"
+    tools:layout_height="wrap_content"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <View
+        android:id="@+id/ivImg"
+        android:background="@color/white_opacity"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/tvTitle"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="5dp"
+        android:background="@color/white_opacity"
+        app:layout_constraintBottom_toTopOf="@+id/tvAuthor"
+        app:layout_constraintStart_toEndOf="@+id/ivImg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+    <View
+        android:id="@+id/tvAuthor"
+        android:layout_width="120dp"
+        android:layout_marginTop="2dp"
+        android:layout_height="20dp"
+        android:background="@color/white_opacity"
+        app:layout_constraintBottom_toTopOf="@+id/tvDate"
+        app:layout_constraintStart_toStartOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <View
+        android:id="@+id/tvDate"
+        android:layout_width="80dp"
+        android:layout_marginTop="2dp"
+        android:layout_height="20dp"
+        android:background="@color/white_opacity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="@+id/tvAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/tvAuthor"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_item"
+        app:layout_constraintWidth_percent="0.95" />
+</merge>
