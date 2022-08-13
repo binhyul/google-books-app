@@ -1,12 +1,10 @@
 package com.example.google_books.ui.book
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.google_books.domain.LoadBooksUseCase
+import com.example.google_books.domain.LoadSearchResultUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BookSearchViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
+    private val loadSearchResultUseCase: LoadSearchResultUseCase,
     private val loadBooksUseCase: LoadBooksUseCase
 ) : ViewModel() {
 
@@ -33,6 +32,10 @@ class BookSearchViewModel @Inject constructor(
         .flatMapLatest { text ->
             loadBooksUseCase.invoke(text)
         }.cachedIn(viewModelScope)
+
+    val booksCount: LiveData<Int> by lazy {
+        loadSearchResultUseCase.invoke().asLiveData()
+    }
 
     fun updateSearchText(text: String?) {
         if (searchText.value == text) return

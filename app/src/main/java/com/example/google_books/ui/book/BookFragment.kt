@@ -15,6 +15,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
+import com.example.google_books.R
 import com.example.google_books.component.SearchBar
 import com.example.google_books.databinding.FragmentBookBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -81,6 +82,10 @@ class BookFragment : Fragment() {
             }
         }
 
+        viewModel.booksCount.observe(viewLifecycleOwner) {
+            val result = resources.getString(R.string.result, it.toString())
+            binding.tvResult.text = result
+        }
 
 
         binding.searchBar.setState(

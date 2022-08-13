@@ -10,6 +10,8 @@ class AppRepositoryImpl @Inject constructor(
     private val dataSource: AppRemoteDataSource
 ) : AppRepository {
 
+    override fun getTotalBooksCount(): Flow<Int> = dataSource.getTotalBooksCount()
+
     override suspend fun getListContents(searchText: String): Flow<PagingData<BookItem>> =
         dataSource.getListContents(searchText)
 }

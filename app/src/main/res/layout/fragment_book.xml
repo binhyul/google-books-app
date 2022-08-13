@@ -15,6 +15,18 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_height="57dp" />
 
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/result"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
+        android:layout_height="wrap_content" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookList"
         android:layout_width="0dp"
@@ -24,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+        app:layout_constraintTop_toBottomOf="@+id/tvResult" />
 
     <com.example.google_books.component.LoadingView
         android:id="@+id/loadingView"

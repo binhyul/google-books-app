@@ -7,7 +7,8 @@ import com.example.google_books.remote.BookItem
 
 class ListContentRemotePagingSource(
     private val appService: AppService,
-    private val searchText: String
+    private val searchText: String,
+    private val updateTotalBookCount: suspend (Int) -> Unit
 ) : PagingSource<Int, BookItem>() {
     override fun getRefreshKey(state: PagingState<Int, BookItem>): Int? {
         return 0
@@ -31,6 +32,7 @@ class ListContentRemotePagingSource(
                 val list = response.items.orEmpty()
                 val nextPage = if (list.isEmpty()) null else startIndex + PAGE_SIZE
                 val skeletonSize = if (list.isEmpty()) 0 else PAGE_SIZE * 3
+                updateTotalBookCount(response.totalItems)
 
                 LoadResult.Page(list, prevPage, nextPage, itemsAfter = skeletonSize)
             } else {
