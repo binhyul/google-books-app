@@ -6,19 +6,13 @@ import androidx.paging.PagingData
 import com.example.google_books.data.source.ListContentRemotePagingSource
 import com.example.google_books.remote.AppService
 import com.example.google_books.remote.BookItem
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.receiveAsFlow
 import javax.inject.Inject
 
 class AppRemoteDataSourceImpl @Inject constructor(
     private val appService: AppService
 ) : AppRemoteDataSource {
 
-    private val totalBookCountChannel = Channel<Int>()
-    private val totalBookCount = totalBookCountChannel.receiveAsFlow()
-
-    override fun getTotalBooksCount(): Flow<Int> = totalBookCount
 
     override suspend fun getListContents(searchText: String): Flow<PagingData<BookItem>> {
         return Pager(
@@ -29,9 +23,7 @@ class AppRemoteDataSourceImpl @Inject constructor(
                 ListContentRemotePagingSource.PAGE_SIZE,
             ), 0
         ) {
-            ListContentRemotePagingSource(appService, searchText) {
-                totalBookCountChannel.send(it)
-            }
+            ListContentRemotePagingSource(appService, searchText)
         }.flow
     }
 }

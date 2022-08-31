@@ -57,7 +57,8 @@ dependencies {
     implementation(Deps.Hilt.hiltAndroid)
     kapt(Deps.Hilt.hiltAndroidCompiler)
     implementation(Deps.Paging.runtime)
-    implementation(Deps.Android.X.lifecycleRuntime)
+    implementation(Deps.Android.X.lifecycleRunTime)
+    implementation(Deps.Android.X.lifecycleViewModel)
 
     implementation(Deps.glide)
     kapt(Deps.glideCompiler)
@@ -73,6 +74,9 @@ dependencies {
 
     implementation(Deps.Network.loopjAsync)
 
+    implementation(Deps.Room.runtime)
+    implementation(Deps.Room.ktx)
+    kapt(Deps.Room.compiler)
 
     testImplementation(Deps.AndroidTest.junit)
     androidTestImplementation(Deps.AndroidTest.ext)

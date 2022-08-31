@@ -2,11 +2,11 @@ object Deps {
     object Android {
         object X {
             const val core = "androidx.core:core-ktx:${Versions.coreVersion}"
-            const val lifecycleRuntime =
+            const val lifecycleRunTime =
                 "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleVersion}"
+            const val lifecycleViewModel =
+                "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}"
             const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompatVersion}"
-
-
             const val constraintLayout =
                 "androidx.constraintlayout:constraintlayout:${Versions.constraintLayoutVersion}"
         }
@@ -46,6 +46,12 @@ object Deps {
             const val core =
                 "androidx.test.espresso:espresso-core:${Versions.AndroidTest.espressoVersion}"
         }
+    }
+
+    object Room {
+        const val runtime = "androidx.room:room-runtime:${Versions.roomVersion}"
+        const val ktx = "androidx.room:room-ktx:${Versions.roomVersion}"
+        const val compiler = "androidx.room:room-compiler:${Versions.roomVersion}"
     }
 
     object Hilt {

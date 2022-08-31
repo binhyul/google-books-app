@@ -1,8 +1,6 @@
 package com.example.google_books.ui.book
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import com.example.google_books.R
-import com.example.google_books.component.SearchBar
 import com.example.google_books.databinding.FragmentBookBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -33,9 +28,6 @@ class BookFragment : Fragment() {
 
     private val bookController = object : BookController {
         override fun onClickBook(link: String) {
-            if (link.isBlank()) return
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-            startActivity(intent)
         }
     }
 
@@ -52,53 +44,52 @@ class BookFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initList()
+        initSearchBar()
+    }
 
+    private fun initList() {
         binding.bookList.adapter = bookAdapter
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.books
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
-                .collectLatest {
-                    bookAdapter.submitData(it)
+                .collectLatest { data ->
+                    bookAdapter.submitData(data)
                 }
         }
 
-        bookAdapter.addLoadStateListener {
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-
-                    if (it.refresh is LoadState.Loading && !viewModel.searchText.value.isNullOrBlank()) {
-                        showLoading()
+        viewLifecycleOwner.lifecycleScope.launch {
+            bookAdapter.loadStateFlow
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+                .collectLatest {
+                    if (it.refresh is LoadState.Loading && viewModel.searchText.isNotBlank()) {
+                        viewModel.updateLoadingState(true)
                     }
 
                     if (it.source.refresh is LoadState.NotLoading && bookAdapter.itemCount > 0) {
-                        hideLoading()
+                        viewModel.updateLoadingState(false)
                     }
 
                     val currentState = it.refresh
                     if (currentState is LoadState.Error) {
-                        hideLoading()
+                        viewModel.updateLoadingState(false)
                     }
                 }
-            }
         }
 
-        viewModel.booksCount.observe(viewLifecycleOwner) {
-            val result = resources.getString(R.string.result, it.toString())
-            binding.tvResult.text = result
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) showLoading() else hideLoading()
+        }
+    }
+
+    private fun initSearchBar() {
+        viewModel.searchBarState.observe(viewLifecycleOwner) {
+            binding.searchBar.setState(it)
         }
 
-
-        binding.searchBar.setState(
-            SearchBar.State(
-                text = viewModel.searchText.value,
-                updateTextAction = {
-                    viewModel.updateSearchText(it)
-                },
-                onKeyAction = {
-                    closeKeyboard()
-                }
-            )
-        )
+        viewModel.setSearchState {
+            closeKeyboard()
+        }
     }
 
     private fun closeKeyboard() {

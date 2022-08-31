@@ -6,7 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface AppRemoteDataSource {
 
-    fun getTotalBooksCount(): Flow<Int>
-
     suspend fun getListContents(searchText: String): Flow<PagingData<BookItem>>
 }
