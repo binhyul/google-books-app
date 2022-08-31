@@ -26,6 +26,8 @@ import javax.net.ssl.SSLContext
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    private val baseUrl = "https://www.googleapis.com"
+
     @Singleton
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
@@ -59,7 +61,7 @@ object NetworkModule {
         val builder = OkHttpClient().newBuilder()
             .cache(cache)
             .dispatcher(dispatcher)
-            .https("https://www.googleapis.com")
+            .https(baseUrl)
             .addInterceptor(loggingInterceptor)
 
         return builder.build()
@@ -71,7 +73,7 @@ object NetworkModule {
         okHttpClient: OkHttpClient
     ): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://www.googleapis.com")
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)

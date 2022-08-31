@@ -11,8 +11,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.google_books.databinding.FragmentBookBinding
+import com.example.google_books.getNavigationResultLiveData
+import com.example.google_books.removeNavigationResultLiveData
+import com.example.google_books.ui.book.adapter.BookAdapter
+import com.example.google_books.ui.book.model.BookModel
+import com.example.google_books.ui.book.model.ListType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,11 +35,13 @@ class BookFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val bookController = object : BookController {
-        override fun onClickBook(link: String) {
+        override fun onClickBook(book: BookModel) {
+            val action = BookFragmentDirections.actionBookFragmentToDetailFragment(book)
+            findNavController().navigate(action)
         }
     }
 
-    private val bookAdapter = BookAdapter(bookController)
+    private val bookAdapter: BookAdapter = BookAdapter(bookController)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,13 +49,20 @@ class BookFragment : Fragment() {
     ): View? {
         _binding = FragmentBookBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initList()
         initSearchBar()
+
+        val result = getNavigationResultLiveData<Boolean>(KEY_REFRESH_REQUEST)
+        result?.observe(viewLifecycleOwner) {
+            if (it) {
+                removeNavigationResultLiveData<Boolean>(KEY_REFRESH_REQUEST)
+                viewModel.updateList()
+            }
+        }
     }
 
     private fun initList() {
@@ -77,8 +94,22 @@ class BookFragment : Fragment() {
                 }
         }
 
+        viewModel.listType.observe(viewLifecycleOwner) {
+            binding.listTypeToggleButton.setImageResource(it.icon)
+            bookAdapter.updateListType(it)
+            binding.bookList.layoutManager = when (it) {
+                ListType.GRID -> GridLayoutManager(requireContext(), 3)
+                else -> LinearLayoutManager(requireContext())
+            }
+
+        }
+
         viewModel.loading.observe(viewLifecycleOwner) {
             if (it) showLoading() else hideLoading()
+        }
+
+        binding.listTypeToggleButton.setOnClickListener {
+            viewModel.changeListType()
         }
     }
 
@@ -112,5 +143,9 @@ class BookFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val KEY_REFRESH_REQUEST = "request_select_season"
     }
 }

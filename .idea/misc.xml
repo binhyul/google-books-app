@@ -7,20 +7,26 @@
         <entry key="app/src/main/res/drawable/background_search_bar.xml" value="0.312" />
         <entry key="app/src/main/res/drawable/bg_selectable_borderless.xml" value="0.312" />
         <entry key="app/src/main/res/drawable/bg_selectable_item.xml" value="0.312" />
+        <entry key="app/src/main/res/drawable/bg_shop_like.xml" value="0.329" />
         <entry key="app/src/main/res/drawable/edit_text_cursor.xml" value="0.312" />
         <entry key="app/src/main/res/drawable/ic_close_input_20.xml" value="0.312" />
+        <entry key="app/src/main/res/drawable/ic_heart_empty_24.xml" value="0.329" />
+        <entry key="app/src/main/res/drawable/ic_heart_filled_24.xml" value="0.329" />
         <entry key="app/src/main/res/drawable/malt_ic_search_24.xml" value="0.312" />
         <entry key="app/src/main/res/drawable/selectable_effect.xml" value="0.312" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/book.xml" value="0.3591485507246377" />
+        <entry key="app/src/main/res/layout/book_card.xml" value="0.40260416666666665" />
         <entry key="app/src/main/res/layout/book_item.xml" value="0.38315217391304346" />
         <entry key="app/src/main/res/layout/book_skeleton.xml" value="0.38315217391304346" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.3591485507246377" />
+        <entry key="app/src/main/res/layout/frag_detail.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/layout/fragment_book.xml" value="0.26268115942028986" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/search_bar.xml" value="0.38315217391304346" />
         <entry key="app/src/main/res/layout/top_navigation.xml" value="0.45255474452554745" />
         <entry key="app/src/main/res/layout/view_book.xml" value="0.38315217391304346" />
+        <entry key="app/src/main/res/layout/view_book_card.xml" value="0.40260416666666665" />
         <entry key="app/src/main/res/layout/view_book_skeleton.xml" value="0.38315217391304346" />
         <entry key="app/src/main/res/layout/view_loading.xml" value="0.38315217391304346" />
       </map>

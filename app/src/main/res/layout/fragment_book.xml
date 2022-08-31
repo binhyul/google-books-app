@@ -11,9 +11,20 @@
         android:id="@+id/searchBar"
         android:layout_width="0dp"
         android:layout_height="57dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/listTypeToggleButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/listTypeToggleButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchBar"
+        app:layout_constraintTop_toTopOf="@+id/searchBar"
+        app:layout_constraintBottom_toBottomOf="@+id/searchBar"
+        tools:src="@drawable/list_48" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookList"

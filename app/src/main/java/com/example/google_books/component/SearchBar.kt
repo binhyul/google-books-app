@@ -2,14 +2,13 @@ package com.example.google_books.component
 
 import android.content.Context
 import android.os.IBinder
-import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
 import com.example.google_books.databinding.SearchBarBinding
-import kotlinx.parcelize.Parcelize
+
 
 class SearchBar @JvmOverloads constructor(
     context: Context,
@@ -17,12 +16,11 @@ class SearchBar @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    @Parcelize
     data class State(
         val text: String?,
         val updateTextAction: (String?) -> Unit,
         val onKeyAction: () -> Unit
-    ) : Parcelable
+    )
 
     private val binding: SearchBarBinding =
         SearchBarBinding.inflate(LayoutInflater.from(context), this)

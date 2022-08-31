@@ -22,4 +22,10 @@
     <style name="Theme.Googlebooks.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Googlebooks.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="book_thumbnail_roundedCorners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">6dp</item>
+    </style>
+
 </resources>

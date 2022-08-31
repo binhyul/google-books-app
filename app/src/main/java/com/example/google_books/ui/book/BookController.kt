@@ -1,5 +1,7 @@
 package com.example.google_books.ui.book
 
+import com.example.google_books.ui.book.model.BookModel
+
 interface BookController {
-    fun onClickBook(link: String)
+    fun onClickBook(book: BookModel)
 }

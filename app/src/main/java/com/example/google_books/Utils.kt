@@ -5,6 +5,8 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -71,4 +73,16 @@ class OnThrottleClickListener(
 fun View.onThrottleClick(intervalMs: Long = 300L, action: (view: View) -> Unit) {
     val listener = View.OnClickListener { action(it) }
     setOnClickListener(OnThrottleClickListener(listener, intervalMs))
+}
+
+
+fun <T> Fragment.setNavigationResult(result: T, key: String) {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
+}
+
+fun <T> Fragment.getNavigationResultLiveData(key: String) =
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
+
+fun <T> Fragment.removeNavigationResultLiveData(key: String) {
+    findNavController().currentBackStackEntry?.savedStateHandle?.remove<T>(key)
 }

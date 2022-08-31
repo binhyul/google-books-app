@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.google_books.data.source.ListContentRemotePagingSource
 import com.example.google_books.remote.AppService
-import com.example.google_books.remote.BookItem
+import com.example.google_books.remote.model.BookItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

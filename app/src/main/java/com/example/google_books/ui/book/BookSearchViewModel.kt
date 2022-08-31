@@ -1,43 +1,59 @@
 package com.example.google_books.ui.book
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.google_books.component.SearchBar
 import com.example.google_books.domain.LoadBooksUseCase
+import com.example.google_books.domain.UpdateBooksUseCase
+import com.example.google_books.ui.book.model.BookModel
+import com.example.google_books.ui.book.model.ListType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class BookSearchViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val loadBooksUseCase: LoadBooksUseCase
+    private val loadBooksUseCase: LoadBooksUseCase,
+    private val updateBooksUseCase: UpdateBooksUseCase
 ) : ViewModel() {
 
     private val searchTextFlow: StateFlow<String> =
         savedStateHandle.getStateFlow(SEARCH_INPUT_TEXT, "")
 
+    private val listUpdateChannel = Channel<Unit>().apply {
+        viewModelScope.launch {
+            send(Unit)
+        }
+    }
+    private val listUpdateEvent = listUpdateChannel.receiveAsFlow()
+
     val searchText: String
         get() = searchTextFlow.value
 
-    val searchBarState: LiveData<SearchBar.State> by lazy {
-        savedStateHandle.getLiveData(SEARCH_BAR_STATE)
-    }
+    private val _searchBarState: MutableLiveData<SearchBar.State> = MutableLiveData()
+    val searchBarState: LiveData<SearchBar.State>
+        get() = _searchBarState
+
+    val listType: LiveData<ListType> = savedStateHandle.getLiveData(LIST_TYPE)
 
     val loading: LiveData<Boolean> by lazy {
         savedStateHandle.getLiveData(LOADING_STATE)
     }
 
     val books: Flow<PagingData<BookModel>> = searchTextFlow.flatMapLatest { text ->
-        loadBooksUseCase.invoke(text)
+        loadBooksUseCase(text)
+    }.cachedIn(viewModelScope).combine(listUpdateEvent) { pagingData, event ->
+        updateBooksUseCase(pagingData).getOrDefault(pagingData)
     }.cachedIn(viewModelScope)
+
+    init {
+        savedStateHandle[LIST_TYPE] = ListType.VERTICAL
+    }
 
     private fun updateSearchText(text: String?) {
         if (searchTextFlow.value == text) return
@@ -45,7 +61,7 @@ class BookSearchViewModel @Inject constructor(
     }
 
     fun setSearchState(onKeyAction: () -> Unit) {
-        savedStateHandle[SEARCH_BAR_STATE] = SearchBar.State(
+        _searchBarState.value = SearchBar.State(
             text = searchText,
             updateTextAction = {
                 updateSearchText(it)
@@ -60,19 +76,23 @@ class BookSearchViewModel @Inject constructor(
         savedStateHandle[LOADING_STATE] = loading
     }
 
+    fun changeListType() {
+        savedStateHandle[LIST_TYPE] = when (listType.value) {
+            ListType.VERTICAL -> ListType.GRID
+            else -> ListType.VERTICAL
+        }
+    }
+
+    fun updateList() {
+        viewModelScope.launch {
+            listUpdateChannel.send(Unit)
+        }
+    }
+
     companion object {
         const val SEARCH_INPUT_TEXT = "search_tab_input_text"
-        const val SEARCH_BAR_STATE = "search_bar_state"
+        const val LIST_TYPE = "list_type"
         const val LOADING_STATE = "loading_state"
     }
 
 }
-
-data class BookModel(
-    val id: String,
-    val title: String,
-    val thumbnail: String,
-    val author: String,
-    val date: String,
-    val infoLink: String
-)

@@ -8,8 +8,18 @@
     <fragment
         android:id="@+id/BookFragment"
         android:name="com.example.google_books.ui.book.BookFragment"
-        android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_book">
 
+        <action
+            android:id="@+id/action_BookFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.google_books.ui.detail.DetailFragment"
+        android:label="DetailFragment">
+        <argument
+            android:name="model"
+            app:argType="com.example.google_books.ui.book.model.BookModel" />
     </fragment>
 </navigation>
