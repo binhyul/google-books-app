@@ -22,7 +22,7 @@ class BookSearchViewModel @Inject constructor(
     private val updateBooksUseCase: UpdateBooksUseCase
 ) : ViewModel() {
 
-    private val searchTextFlow: StateFlow<String> =
+    val searchTextFlow: StateFlow<String> =
         savedStateHandle.getStateFlow(SEARCH_INPUT_TEXT, "")
 
     private val listUpdateChannel = Channel<Unit>().apply {
@@ -31,7 +31,7 @@ class BookSearchViewModel @Inject constructor(
         }
     }
     private val listUpdateEvent = listUpdateChannel.receiveAsFlow()
-    
+
     val searchText: String
         get() = searchTextFlow.value
 
@@ -40,6 +40,8 @@ class BookSearchViewModel @Inject constructor(
         get() = _searchBarState
 
     val listType: LiveData<ListType> = savedStateHandle.getLiveData(LIST_TYPE)
+    val listScrollPosition: Int
+        get() = savedStateHandle[SCROLL_POSITION] ?: 0
 
     val loading: LiveData<Boolean> by lazy {
         savedStateHandle.getLiveData(LOADING_STATE)
@@ -58,6 +60,7 @@ class BookSearchViewModel @Inject constructor(
     private fun updateSearchText(text: String?) {
         if (searchTextFlow.value == text) return
         savedStateHandle[SEARCH_INPUT_TEXT] = text.orEmpty()
+        savedStateHandle[SCROLL_POSITION] = 0
     }
 
     fun setSearchState(onKeyAction: () -> Unit) {
@@ -89,10 +92,15 @@ class BookSearchViewModel @Inject constructor(
         }
     }
 
+    fun onListScroll(savePosition: Int) {
+        savedStateHandle[SCROLL_POSITION] = savePosition
+    }
+
     companion object {
         const val SEARCH_INPUT_TEXT = "search_tab_input_text"
         const val LIST_TYPE = "list_type"
         const val LOADING_STATE = "loading_state"
+        const val SCROLL_POSITION = "scroll_position"
     }
 
 }

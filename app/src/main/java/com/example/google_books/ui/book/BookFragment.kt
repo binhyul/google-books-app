@@ -67,6 +67,16 @@ class BookFragment : Fragment() {
     }
 
     private fun observeLoadingState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.searchTextFlow
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+                .collectLatest {
+                    if (it.isBlank()) {
+                        viewModel.updateLoadingState(false)
+                    }
+                }
+        }
+
         viewModel.loading.observe(viewLifecycleOwner) {
             if (it) showLoading() else hideLoading()
         }
@@ -74,6 +84,9 @@ class BookFragment : Fragment() {
 
     private fun initList() {
         binding.bookList.adapter = bookAdapter
+        binding.bookList.addRecyclerListener {
+            viewModel.onListScroll(it.layoutPosition)
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.books
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
@@ -105,9 +118,10 @@ class BookFragment : Fragment() {
             binding.listTypeToggleButton.setImageResource(it.icon)
             bookAdapter.updateListType(it)
             binding.bookList.layoutManager = when (it) {
-                ListType.GRID -> GridLayoutManager(requireContext(), 2)
+                ListType.GRID -> GridLayoutManager(requireContext(), 3)
                 else -> LinearLayoutManager(requireContext())
             }
+            binding.bookList.scrollToPosition(viewModel.listScrollPosition)
         }
     }
 
