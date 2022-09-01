@@ -54,14 +54,21 @@ class BookFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initList()
+        observeLoadingState()
         initSearchBar()
+        setNavigationResult()
+        setClickListener()
+    }
 
-        val result = getNavigationResultLiveData<Boolean>(KEY_REFRESH_REQUEST)
-        result?.observe(viewLifecycleOwner) {
-            if (it) {
-                removeNavigationResultLiveData<Boolean>(KEY_REFRESH_REQUEST)
-                viewModel.updateList()
-            }
+    private fun setClickListener() {
+        binding.listTypeToggleButton.setOnClickListener {
+            viewModel.changeListType()
+        }
+    }
+
+    private fun observeLoadingState() {
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) showLoading() else hideLoading()
         }
     }
 
@@ -101,15 +108,6 @@ class BookFragment : Fragment() {
                 ListType.GRID -> GridLayoutManager(requireContext(), 3)
                 else -> LinearLayoutManager(requireContext())
             }
-
-        }
-
-        viewModel.loading.observe(viewLifecycleOwner) {
-            if (it) showLoading() else hideLoading()
-        }
-
-        binding.listTypeToggleButton.setOnClickListener {
-            viewModel.changeListType()
         }
     }
 
@@ -130,6 +128,16 @@ class BookFragment : Fragment() {
             binding.searchBar.searchBarWindowToken,
             0
         )
+    }
+
+    private fun setNavigationResult() {
+        val result = getNavigationResultLiveData<Boolean>(KEY_REFRESH_REQUEST)
+        result?.observe(viewLifecycleOwner) {
+            if (it) {
+                removeNavigationResultLiveData<Boolean>(KEY_REFRESH_REQUEST)
+                viewModel.updateList()
+            }
+        }
     }
 
     private fun showLoading() {

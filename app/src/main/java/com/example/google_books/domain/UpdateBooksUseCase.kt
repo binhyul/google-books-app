@@ -5,8 +5,6 @@ import androidx.paging.map
 import com.example.google_books.data.AppRepository
 import com.example.google_books.local.model.toModel
 import com.example.google_books.ui.book.model.BookModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UpdateBooksUseCase @Inject constructor(
@@ -14,11 +12,10 @@ class UpdateBooksUseCase @Inject constructor(
 ) : UseCase<PagingData<BookModel>, PagingData<BookModel>>() {
 
     override suspend fun execute(parameters: PagingData<BookModel>): PagingData<BookModel> {
-        return withContext(Dispatchers.IO) {
-            parameters.map {
-                it.findLikeBook()
-            }
+        return parameters.map {
+            it.findLikeBook()
         }
+
     }
 
     private suspend fun BookModel.findLikeBook(): BookModel {

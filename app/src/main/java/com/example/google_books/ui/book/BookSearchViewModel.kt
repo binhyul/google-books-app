@@ -31,7 +31,7 @@ class BookSearchViewModel @Inject constructor(
         }
     }
     private val listUpdateEvent = listUpdateChannel.receiveAsFlow()
-
+    
     val searchText: String
         get() = searchTextFlow.value
 
