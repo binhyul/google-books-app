@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.2703804347826087" />
+        <entry key="app/src/main/res/drawable-v24/book_48.xml" value="0.338" />
         <entry key="app/src/main/res/drawable/background_search_bar.xml" value="0.312" />
         <entry key="app/src/main/res/drawable/bg_selectable_borderless.xml" value="0.312" />
         <entry key="app/src/main/res/drawable/bg_selectable_item.xml" value="0.312" />

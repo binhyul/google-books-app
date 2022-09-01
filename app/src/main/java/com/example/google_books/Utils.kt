@@ -1,10 +1,9 @@
 package com.example.google_books
 
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
+import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -17,6 +16,7 @@ import com.bumptech.glide.request.target.Target
 
 fun ImageView.loadUrlImage(
     url: String,
+    @DrawableRes placeHolder: Int = R.drawable.book_48,
     imageLoadedCallback: (() -> Unit)? = null,
     imageLoadFailCallback: (() -> Unit)? = imageLoadedCallback,
 ) {
@@ -45,7 +45,7 @@ fun ImageView.loadUrlImage(
                     return false
                 }
             })
-            .placeholder(ColorDrawable(ContextCompat.getColor(context, R.color.teal_200)))
+            .placeholder(placeHolder)
             .into(this)
     } catch (e: Exception) {
         e.printStackTrace()
