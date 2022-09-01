@@ -14,7 +14,9 @@ fun BookItem.toModel(like: Boolean = false) = BookModel(
     volumeInfo?.title.orEmpty(),
     volumeInfo?.imageLinks?.thumbnail.orEmpty(),
     volumeInfo?.authors?.joinToString(", ").orEmpty(),
-    (saleInfo?.listPrice?.amount ?: 0).toString(),
+    volumeInfo?.publishedDate.orEmpty(),
+    volumeInfo?.publisher.orEmpty(),
+    saleInfo?.listPrice?.amount ?: 0,
     volumeInfo?.description.orEmpty(),
     like
 )
@@ -22,6 +24,7 @@ fun BookItem.toModel(like: Boolean = false) = BookModel(
 data class VolumeInfo(
     @SerializedName("title") val title: String?,
     @SerializedName("publishedDate") val publishedDate: String?,
+    @SerializedName("publisher") val publisher: String?,
     @SerializedName("description") val description: String?,
     @SerializedName("authors") val authors: List<String>?,
     @SerializedName("imageLinks") val imageLinks: BookVolumeImage?,

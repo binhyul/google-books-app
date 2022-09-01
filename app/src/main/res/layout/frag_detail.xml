@@ -27,6 +27,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_marginStart="5dp"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -48,7 +49,7 @@
             tools:text="21st ..." />
 
         <TextView
-            android:id="@+id/tvPrice"
+            android:id="@+id/tvPublishDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
@@ -56,6 +57,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAuthor"
+            tools:text="21st ..." />
+
+        <TextView
+            android:id="@+id/tvPublisher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPublishDate"
+            tools:text="21st ..." />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPublisher"
             tools:text="21st ..." />
 
         <TextView

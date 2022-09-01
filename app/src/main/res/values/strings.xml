@@ -2,5 +2,13 @@
     <string name="app_name">google-books</string>
     <string name="action_settings">Settings</string>
 
-    <string name="result">Result(%1$s)</string>
+
+    <string name="author">저자 : %1$s</string>
+    <string name="publisher">출판사 : %1$s</string>
+    <string name="publish_date">출판일 : %1$s</string>
+    <string name="price_detail">가격 : %1$d원</string>
+    <string name="none_price">가격 정보 없음</string>
+    <string name="none_description">설명 없음</string>
+    <string name="none_author_information">저자 정보 없음</string>
+    <string name="none_information">정보 없음</string>
 </resources>

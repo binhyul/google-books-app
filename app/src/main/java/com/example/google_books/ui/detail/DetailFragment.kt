@@ -44,9 +44,11 @@ class DetailFragment : Fragment() {
         viewModel.bookModel.observe(viewLifecycleOwner) {
             binding.tvTitle.text = it.title
             binding.ivImg.loadUrlImage(it.thumbnail)
-            binding.tvAuthor.text = it.author
-            binding.tvPrice.text = it.price
-            binding.tvDescription.text = it.description
+            binding.tvAuthor.text = resources.getString(R.string.author, it.author)
+            binding.tvPublishDate.text = resources.getString(R.string.publish_date, it.publishDate)
+            binding.tvPublisher.text = it.getPublisher(resources)
+            binding.tvPrice.text = it.getPrice(resources)
+            binding.tvDescription.text = it.getDescription(resources)
 
             binding.ivLike.setImageResource(
                 if (it.like) {

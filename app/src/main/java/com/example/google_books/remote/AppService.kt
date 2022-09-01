@@ -10,8 +10,7 @@ interface AppService {
     suspend fun getListContents(
         @Query(value = "q") text: String,
         @Query("startIndex") startIndex: String,
-        @Query("maxResults") size: String,
-        @Query("filter") filter: String = "paid-ebooks"
+        @Query("maxResults") size: String
     ): ListContentsResponse
 
 }

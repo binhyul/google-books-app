@@ -37,10 +37,16 @@ class BookItemViewHolder(
     private val binding = ViewBookBinding.bind(itemView)
 
     fun bind(model: BookModel) {
+        val resources = binding.root.resources
         with(model) {
             binding.root.setState(
                 BookView.State(
-                    title, thumbnail, author, price, description, like
+                    title = title,
+                    thumbnail = thumbnail,
+                    author = getAuthor(resources),
+                    price = getPrice(resources),
+                    description = getDescription(resources),
+                    like = like
                 )
             )
             binding.root.onThrottleClick {

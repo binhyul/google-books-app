@@ -11,7 +11,9 @@ data class BookEntity(
     val thumbnail: String,
     val title: String,
     val author: String,
-    val price: String,
+    val publishDate: String,
+    val publisher: String,
+    val price: Int,
     val description: String,
     val like: Boolean
 )
@@ -21,6 +23,8 @@ fun BookEntity.toModel() = BookModel(
     title = title,
     thumbnail = thumbnail,
     author = author,
+    publishDate = publishDate,
+    publisher = publisher,
     price = price,
     description = description,
     like = true
