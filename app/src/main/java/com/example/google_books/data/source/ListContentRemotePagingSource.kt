@@ -37,7 +37,7 @@ class ListContentRemotePagingSource(
 
                 LoadResult.Page(list, prevPage, nextPage, itemsAfter = skeletonSize)
             } else {
-                LoadResult.Page(emptyList(), -1, 0)
+                LoadResult.Page(emptyList(), null, null)
             }
         } catch (e: Exception) {
             LoadResult.Error(e)

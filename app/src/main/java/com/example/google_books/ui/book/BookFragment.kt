@@ -105,7 +105,7 @@ class BookFragment : Fragment() {
             binding.listTypeToggleButton.setImageResource(it.icon)
             bookAdapter.updateListType(it)
             binding.bookList.layoutManager = when (it) {
-                ListType.GRID -> GridLayoutManager(requireContext(), 3)
+                ListType.GRID -> GridLayoutManager(requireContext(), 2)
                 else -> LinearLayoutManager(requireContext())
             }
         }
