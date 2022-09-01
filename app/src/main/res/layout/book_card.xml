@@ -10,10 +10,10 @@
         android:id="@+id/ivImg"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1.2"
         app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="fitXY"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,9 +22,9 @@
 
     <ImageView
         android:id="@+id/ivLike"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:padding="6dp"
+        android:layout_width="@dimen/book_card_like_icon_size"
+        android:layout_height="@dimen/book_card_like_icon_size"
+        android:padding="@dimen/book_card_like_icon_padding"
         android:src="@drawable/ic_heart_empty_24"
         app:layout_constraintEnd_toEndOf="@+id/ivImg"
         app:layout_constraintTop_toTopOf="@+id/ivImg" />

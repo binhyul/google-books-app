@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_opacity">#4DFFFFFF</color>
     <color name="red">#dc143c</color>
+
+    <color name="search_bar_background">#222326</color>
 </resources>

@@ -1,3 +1,33 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+
+    <!--  Global  -->
+    <dimen name="page_top_margin">50dp</dimen>
+    <dimen name="page_margin">20dp</dimen>
+
+    <!--  Search Page  -->
+    <dimen name="search_bar_height">57dp</dimen>
+    <dimen name="list_type_icon_size">32dp</dimen>
+
+    <!--  Search Bar  -->
+    <dimen name="search_bar_layout_height">40dp</dimen>
+    <dimen name="search_bar_layout_margin">20dp</dimen>
+    <dimen name="search_icon_size">24dp</dimen>
+    <dimen name="search_icon_start_margin">12dp</dimen>
+    <dimen name="search_icon_top_margin">7dp</dimen>
+    <dimen name="search_icon_bottom_margin">9dp</dimen>
+    <dimen name="search_text_start_margin">8dp</dimen>
+    <dimen name="search_background_radius">8dp</dimen>
+
+    <!--  Book  -->
+    <dimen name="book_thumbnail_width">80dp</dimen>
+    <dimen name="book_title_offset">5dp</dimen>
+    <dimen name="book_like_icon_size">48dp</dimen>
+    <dimen name="book_like_icon_padding">12dp</dimen>
+
+    <!--  Book Card -->
+    <dimen name="book_card_like_icon_size">48dp</dimen>
+    <dimen name="book_card_like_icon_padding">6dp</dimen>
+
+    <!-- Loading -->
+    <dimen name="loading_icon_size">48dp</dimen>
 </resources>

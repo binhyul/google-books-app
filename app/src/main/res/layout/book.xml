@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/ivImg"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="15dp"
+        android:layout_width="@dimen/book_thumbnail_width"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1.2"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +22,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="@dimen/book_title_offset"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@android:color/white"
@@ -82,9 +83,9 @@
 
     <ImageView
         android:id="@+id/ivLike"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:padding="12dp"
+        android:layout_width="@dimen/book_like_icon_size"
+        android:layout_height="@dimen/book_like_icon_size"
+        android:padding="@dimen/book_like_icon_padding"
         android:src="@drawable/ic_heart_empty_24"
         app:layout_constraintBottom_toBottomOf="@+id/ivImg"
         app:layout_constraintEnd_toEndOf="parent"
